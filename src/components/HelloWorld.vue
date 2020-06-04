@@ -1,16 +1,13 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1>恭喜你看到了这个页面！</h1>
+    <p>如果你看到了这个页面，说明你的 router 正常</p>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+      你现在的运行模式为： {{ env }}
     </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
+    <p>如果你看到了上面的运行模式，说明 vuex 模块正常</p>
+    <p>{{ test_rsp }}</p>
+
     <h3>Essential Links</h3>
     <ul>
       <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
@@ -19,22 +16,32 @@
       <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
       <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
     </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
   </div>
 </template>
 
 <script>
+  import {mapState} from 'vuex'
+  import {testAPI} from '@/axios'
+
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
+    msg: String,
+  },
+  data(){
+    return {
+      test_rsp: 'axios 似乎有问题...'
+    }
+  },
+  computed:{
+    ...mapState(['env'])
+  },
+  mounted() {
+    testAPI().then((rsp)=>{
+      this.test_rsp =  rsp.data.data
+    }).catch(()=>{
+      this.test_rsp = '未能获取数据，可能是未开启 mock 或者 后端'
+    })
   }
 }
 </script>
