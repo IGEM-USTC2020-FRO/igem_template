@@ -1,4 +1,4 @@
-# iem 前端项目的模板文件
+# iGem USTC 前端项目的模板文件
 **任何人不得**修改此项目，此项目只是工程的示范模板文件，不是最终开发文件。
 具体配置请见 [https://igem-ustc2020-fro.github.io/](https://igem-ustc2020-fro.github.io/)
 
